@@ -1,5 +1,6 @@
 ARCH ?= native
 FILE_MK = files.mk
+AM_APPS_MK = build/${ARCH}/am-apps.mk
 FILE_TMP = .tmp.$(FILE_MK)
 RTCONFIG_H = rtconfig.h
 
@@ -9,7 +10,9 @@ CFLAGS += -DHAVE_CCONFIG_H -D__RTTHREAD__
 CFLAGS += -Wno-nonnull-compare
 LDFLAGS += -T extra.ld
 -include $(FILE_MK)
--include am-apps.mk
+ifneq ($(AM_APPS),)
+include $(AM_APPS_MK)
+endif
 include $(AM_HOME)/Makefile
 
 $(RTCONFIG_H):
@@ -29,7 +32,9 @@ menuconfig:
 	scons --genconfig
 	$(MAKE) init
 
-update:
-	python integrate-am-apps.py ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE)
+$(AM_APPS_MK): integrate-am-apps.py
+	python3 integrate-am-apps.py ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE)
 
-.PHONY: init menuconfig
+update: $(AM_APP_MK)
+
+.PHONY: init menuconfig update
