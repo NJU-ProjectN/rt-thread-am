@@ -739,7 +739,7 @@ void msh_auto_complete(char *prefix)
         {
             /* skip finsh shell function */
             cmd_name = (const char *) index->name;
-            if (strncmp(prefix, cmd_name, strlen(prefix)) == 0)
+            if (rt_strncmp(prefix, cmd_name, strlen(prefix)) == 0)
             {
                 if (min_length == 0)
                 {
