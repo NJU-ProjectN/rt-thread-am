@@ -9,6 +9,18 @@
  * 2021-12-25     Meco Man     Handle newlib 2.2.0 or lower version
  */
 
+/*
+ * Newlib's <sys/types.h> includes <sys/select.h> before it defines clock_t.
+ * If this wrapper is picked up at that point, including RT-Thread's
+ * <sys/time.h> below pulls in <time.h> too early and newlib sees an undefined
+ * clock_t.  In that specific in-progress newlib include, keep using newlib's
+ * own select definitions first.
+ */
+#if defined(__GNUC__) && !defined(__ARMCC_VERSION) && defined(_SYS_TYPES_H) && \
+    !defined(__clock_t_defined) && !defined(_CLOCK_T_DECLARED)
+#include_next <sys/select.h>
+#else
+
 #ifndef __SYS_SELECT_H__
 #define __SYS_SELECT_H__
 
@@ -58,3 +70,5 @@ int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struc
 #endif
 
 #endif /* __SYS_SELECT_H__ */
+
+#endif
