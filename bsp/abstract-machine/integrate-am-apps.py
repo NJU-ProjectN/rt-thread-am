@@ -30,6 +30,8 @@ Path("build").mkdir(exist_ok=True)
 am_app_mk_fp = open(f"build/{ARCH}/am-apps.mk", "w")
 am_app_c_fp  = open("build/am-apps.c" , "w")
 lib_sym = [
+  # Linker-reserved symbol; do not namespace it with the application prefix.
+  "_GLOBAL_OFFSET_TABLE_",
   "memset", "memcpy", "memmove", "memcmp",
   "strlen", "strcat", "strcpy", "strncpy", "strcmp", "strncmp",
   "srand", "rand", "malloc", "free", "abs", "atoi",
