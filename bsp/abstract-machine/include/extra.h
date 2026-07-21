@@ -1,6 +1,17 @@
+#ifndef __RTTHREAD_AM_EXTRA_H__
+#define __RTTHREAD_AM_EXTRA_H__
+
+#ifdef __ISA_NATIVE__
+/* glibc uses __timeval_defined, while RT-Thread checks this guard. */
+#define _TIMEVAL_DEFINED
+
+/* Use the host libc definitions when AM runs as a native process. */
+#include <sys/types.h>
+#else
 typedef long suseconds_t;
 typedef unsigned long useconds_t;
 #include <sys/types.h>
+#endif
 
 #ifdef __ISA_NATIVE__
 // rename posix API to avoid conflict with glibc in native
@@ -36,3 +47,5 @@ typedef unsigned long useconds_t;
 #define gettimeofday rt_gettimeofday
 
 #endif
+
+#endif /* __RTTHREAD_AM_EXTRA_H__ */
