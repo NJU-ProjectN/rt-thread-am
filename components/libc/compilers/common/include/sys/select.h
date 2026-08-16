@@ -14,7 +14,8 @@
 
 #include <rtconfig.h>
 #include <sys/types.h>
-#include <sys/time.h>
+
+struct timeval;
 
 #ifdef __cplusplus
 extern "C" {

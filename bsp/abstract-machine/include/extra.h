@@ -1,8 +1,7 @@
-typedef long suseconds_t;
-typedef unsigned long useconds_t;
-#include <sys/types.h>
+
 
 #ifdef __ISA_NATIVE__
+#include <sys/types.h>
 // rename posix API to avoid conflict with glibc in native
 #define open      rt_open
 #define creat     rt_creat
@@ -34,5 +33,7 @@ typedef unsigned long useconds_t;
 #define getcwd    rt_getcwd
 
 #define gettimeofday rt_gettimeofday
-
+#else
+typedef long suseconds_t;
+typedef unsigned long useconds_t;
 #endif
