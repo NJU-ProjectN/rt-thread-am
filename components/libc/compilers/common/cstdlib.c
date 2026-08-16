@@ -8,6 +8,7 @@
  * 2021-02-15     Meco Man     first version
  */
 
+#include <stddef.h>
 #include <rtthread.h>
 
 #define DBG_TAG    "stdlib"
