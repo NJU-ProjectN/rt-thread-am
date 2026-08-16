@@ -149,8 +149,8 @@ static const char *file_basename(const char *file)
     char *end_ptr = RT_NULL;
     char *rst = RT_NULL;
 
-    if (!((end_ptr = strrchr(file, '\\')) != RT_NULL || \
-        (end_ptr = strrchr(file, '/')) != RT_NULL) || \
+    if (!((end_ptr = (char*)strrchr(file, '\\')) != RT_NULL || \
+        (end_ptr = (char*)strrchr(file, '/')) != RT_NULL) || \
         (rt_strlen(file) < 2))
     {
         rst = (char *)file;

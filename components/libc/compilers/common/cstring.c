@@ -48,12 +48,12 @@ void explicit_bzero(void* s, size_t n)
 
 char* index(const char* s, int c)
 {
-    return strchr(s, c);
+    return (char*)strchr(s, c);
 }
 
 char* rindex(const char* s, int c)
 {
-    return strrchr(s, c);
+    return (char*)strrchr(s, c);
 }
 
 int ffs(int i)
